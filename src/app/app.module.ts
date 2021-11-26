@@ -4,18 +4,23 @@ import {BrowserModule} from '@angular/platform-browser';
 import {EventsAppComponent} from './events-app.component';
 import {
   CreateEventComponent,
+  CreateSessionComponent,
   EventDetailsComponent,
   EventListComponent,
   EventListResolver,
   EventRouteActivator,
+  EventService,
   EventThumbnailComponent,
-  EventService
+  SessionListComponent
 } from './events';
 import {NavBarComponent} from './nav/navbar.component';
 import {ToastrService} from './common/toastr.service';
 import {RouterModule} from '@angular/router';
 import {appRoutes} from './routes';
-import {Error404Component} from './events/errors/404.component';
+import {Error404Component} from './errors/404.component';
+import {AuthService} from './user/auth.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -25,18 +30,24 @@ import {Error404Component} from './events/errors/404.component';
     NavBarComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    Error404Component
+    Error404Component,
+    CreateSessionComponent,
+    SessionListComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [EventsAppComponent],
   providers: [EventService,
     ToastrService,
     EventRouteActivator,
     EventListResolver,
-    {provide: 'canDeactivateCreateEvent', useValue: checkDirtyState}]
+    {provide: 'canDeactivateCreateEvent', useValue: checkDirtyState},
+    AuthService
+  ]
 })
 export class AppModule {
 

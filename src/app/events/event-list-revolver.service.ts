@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {EventService} from './shared/event.service';
+import {EventService} from './shared';
 import {map} from 'rxjs/operators';
 
 
