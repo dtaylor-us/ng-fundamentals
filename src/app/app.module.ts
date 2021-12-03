@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {EventsAppComponent} from './events-app.component';
 import {
   CreateEventComponent,
-  CreateSessionComponent,
+  CreateSessionComponent, DurationPipe,
   EventDetailsComponent,
   EventListComponent,
   EventListResolver,
@@ -19,9 +19,10 @@ import {appRoutes} from './routes';
 import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CollapsibleWellComponent, ToastrService} from './common';
-import {DurationPipe} from './events/shared/duration.pipe';
+import {CollapsibleWellComponent, Toastr, TOASTR_TOKEN} from './common';
 
+const TOASTR_GLOBAL_OBJ_REF = 'toastr';
+const toastr: Toastr = window[TOASTR_GLOBAL_OBJ_REF];
 
 @NgModule({
   declarations: [
@@ -45,10 +46,10 @@ import {DurationPipe} from './events/shared/duration.pipe';
   ],
   bootstrap: [EventsAppComponent],
   providers: [EventService,
-    ToastrService,
     EventRouteActivator,
     EventListResolver,
     {provide: 'canDeactivateCreateEvent', useValue: checkDirtyState},
+    {provide: TOASTR_TOKEN, useValue: toastr},
     AuthService
   ]
 })
