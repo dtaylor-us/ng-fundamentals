@@ -5,8 +5,8 @@ import {IEvent} from './shared';
   selector: 'app-event-thumbnail',
   template: `
     <div [routerLink]="['/events', event.id]" class="well hoverwell thumbnail">
-      <h2>name: {{event?.name}}</h2>
-      <div>date: {{event?.date}}</div>
+      <h2>{{event?.name | uppercase}}</h2>
+      <div>date: {{event?.date | date:'shortDate'}}</div>
       <div>time: {{event?.time}}</div>
       <div [ngSwitch]="event?.time">
         <span>EarlyStart</span>
@@ -14,7 +14,7 @@ import {IEvent} from './shared';
         <span>Normal Start</span>
 
       </div>
-      <div>price: \${{event?.price}}</div>
+      <div>price: {{event?.price | currency}}</div>
       <div [hidden]="!event?.location">
         <span>Location: {{event?.location?.address}}</span>
         <span>&nbsp;</span>

@@ -20,6 +20,7 @@ import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapsibleWellComponent, ToastrService} from './common';
+import {DurationPipe} from './events/shared/duration.pipe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {CollapsibleWellComponent, ToastrService} from './common';
     Error404Component,
     CreateSessionComponent,
     SessionListComponent,
-    CollapsibleWellComponent
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
