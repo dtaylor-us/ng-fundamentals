@@ -4,4 +4,6 @@ export * from './event-list-revolver.service';
 export * from './event-thumbnail.component';
 export * from './shared/index';
 export * from './event-details/index';
+export * from './location-validator.directive';
+
 

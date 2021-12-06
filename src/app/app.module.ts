@@ -11,7 +11,7 @@ import {
   EventListResolver,
   EventRouteActivator,
   EventService,
-  EventThumbnailComponent,
+  EventThumbnailComponent, LocationValidator,
   SessionListComponent,
   UpvoteComponent,
   VoterService
@@ -44,7 +44,8 @@ const jQuery: Toastr = window[JQUERY_GLOBAL_OBJ_REF];
     DurationPipe,
     SimpleModalComponent,
     ModalTriggerDirective,
-    UpvoteComponent
+    UpvoteComponent,
+    LocationValidator
   ],
   imports: [
     BrowserModule,
