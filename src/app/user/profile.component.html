@@ -6,7 +6,7 @@
       <div class="form-group" [ngClass]="{'error': !validateFirstName()}">
         <label for="firstName">First Name:</label>
         <em *ngIf="!validateFirstName()">Required</em>
-        <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..."/>
+        <input formControlName="firstName" name="first" id="firstName" type="text" class="form-control" placeholder="First Name..."/>
       </div>
       <div class="form-group" [ngClass]="{'error': !validateLastName()}">
         <label for="lastName">Last Name:</label>

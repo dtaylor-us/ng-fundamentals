@@ -8,6 +8,10 @@ export interface ISession {
   voters: string[];
 }
 
+export interface IFoundSession extends ISession {
+  eventId: string;
+}
+
 export interface IEvent {
   id: number;
   name: string;
