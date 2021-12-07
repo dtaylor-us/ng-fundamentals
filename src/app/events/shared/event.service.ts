@@ -1,17 +1,26 @@
 import {Injectable, EventEmitter} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {IEvent, ISession} from './event.model';
+import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class EventService {
 
+  constructor(private http: HttpClient) {
+  }
+
   getEvents(): Observable<IEvent[]> {
-    const subject = new Subject<IEvent[]>();
-    setTimeout(() => {
-      subject.next(EVENTS);
-      subject.complete();
-    }, 100);
-    return subject;
+    return this.http.get<IEvent[]>('/api/events')
+      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
+  }
+
+  // todo add typedef
+  private handleError<T>(operation = 'operation', result?: T): (error: any) => Observable<T> {
+    return (error: any): Observable<T> => {
+      console.log(error);
+      return of(result as T);
+    };
   }
 
   getEvent(id: number): IEvent {

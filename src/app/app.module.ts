@@ -23,6 +23,7 @@ import {Error404Component} from './errors/404.component';
 import {AuthService} from './user/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapsibleWellComponent, JQUERY_TOKEN, ModalTriggerDirective, SimpleModalComponent, Toastr, TOASTR_TOKEN} from './common';
+import {HttpClientModule} from '@angular/common/http';
 
 const TOASTR_GLOBAL_OBJ_REF = 'toastr';
 const JQUERY_GLOBAL_OBJ_REF = '$';
@@ -45,13 +46,14 @@ const jQuery: Toastr = window[JQUERY_GLOBAL_OBJ_REF];
     SimpleModalComponent,
     ModalTriggerDirective,
     UpvoteComponent,
-    LocationValidator
+    LocationValidator,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   bootstrap: [EventsAppComponent],
   providers: [EventService,
