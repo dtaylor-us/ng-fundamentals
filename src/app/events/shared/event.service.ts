@@ -1,7 +1,7 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {Observable, of, Subject} from 'rxjs';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
 import {IEvent, ISession} from './event.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 
 @Injectable()
@@ -15,22 +15,17 @@ export class EventService {
       .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
   }
 
-  // todo add typedef
-  private handleError<T>(operation = 'operation', result?: T): (error: any) => Observable<T> {
-    return (error: any): Observable<T> => {
-      console.log(error);
-      return of(result as T);
-    };
+  getEvent(id: number): Observable<IEvent> {
+    return this.http.get<IEvent>(`/api/events/${id}`)
+      .pipe(catchError(this.handleError<IEvent>('getEvent')));
+    // return EVENTS.find(event => event.id === id);
   }
 
-  getEvent(id: number): IEvent {
-    return EVENTS.find(event => event.id === id);
-  }
-
-  saveEvent(event: IEvent): void {
-    event.id = Math.floor(Math.random() * (1001 - 1 + 1)) + 1;
-    event.sessions = [];
-    EVENTS.push(event);
+  saveEvent(event: IEvent): Observable<IEvent> {
+    return this.http.post<IEvent>(`/api/events`, event, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+      .pipe(catchError(this.handleError<IEvent>('saveEvent')));
   }
 
   updateEvent(event: IEvent): void {
@@ -60,6 +55,14 @@ export class EventService {
     }, 100);
     return emitter;
   }
+
+  private handleError<T>(operation = 'operation', result?: T): (error: any) => Observable<T> {
+    return (error: any): Observable<T> => {
+      console.log(error);
+      return of(result as T);
+    };
+  }
+
 }
 
 const EVENTS: IEvent[] = [

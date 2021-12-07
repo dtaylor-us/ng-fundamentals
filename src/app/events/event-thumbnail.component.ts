@@ -7,12 +7,11 @@ import {IEvent} from './shared';
     <div [routerLink]="['/events', event.id]" class="well hoverwell thumbnail">
       <h2>{{event?.name | uppercase}}</h2>
       <div>date: {{event?.date | date:'shortDate'}}</div>
-      <div>time: {{event?.time}}</div>
-      <div [ngSwitch]="event?.time">
-        <span>EarlyStart</span>
-        <span>Late Start</span>
-        <span>Normal Start</span>
-
+      <div [ngClass]="getStartTimeClass()" [ngSwitch]="event?.time">
+        Time: {{event?.time}}
+        <span *ngSwitchCase="'8:00 am'">(Early Start)</span>
+        <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
+        <span *ngSwitchDefault>(Normal Start)</span>
       </div>
       <div>price: {{event?.price | currency}}</div>
       <div [hidden]="!event?.location">
@@ -35,9 +34,19 @@ import {IEvent} from './shared';
     .well div {
       color: #bbb;
     }
+
+    .timeHighlight {
+      color: #51a351 !important;
+      font-weight: bold;
+    }
   `]
 
 })
 export class EventThumbnailComponent {
   @Input() event: IEvent;
+
+  getStartTimeClass(): {[key: string]: any} {
+    const isEarlyStart = this.event && this.event.time === '8:00 am';
+    return {timeHighlight: isEarlyStart};
+  }
 }
